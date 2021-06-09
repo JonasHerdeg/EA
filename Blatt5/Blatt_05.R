@@ -20,9 +20,9 @@ create_pdf <- function(df, title) {
   pdf(paste(title, ".pdf"))
   for (g in unique(df$generation)) {
     plt <- ggplot(data=df[df$generation == g,],
-                mapping = aes(X1, X2)) +
-      geom_encircle(s_shape = 1.2, fill = "rosybrown1") +
-      geom_point() +
+                mapping = aes(X1, X2, colour = individual)) +
+      geom_encircle(s_shape = 1, expand=0, fill = "rosybrown1") +
+      geom_point(size = 2) +
       coord_cartesian(xlim = c(0, 1), ylim = c(0, 1)) +
       labs(title = paste("Generation: ", g))
     print(plt)
@@ -35,8 +35,8 @@ create_gif <- function(df, title) {
     data = df,
     aes(x = X1, y = X2, colour = individual)
   ) +
-    geom_encircle(s_shape = 1.2, fill = "rosybrown1") +
-    geom_point() +
+    geom_encircle(s_shape = 1, expand=0, fill = "rosybrown1") +
+    geom_point(size = 2) +
     transition_states(generation,
                       transition_length = 2,
                       state_length = 2) +
